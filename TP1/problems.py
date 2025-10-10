@@ -21,9 +21,8 @@ def prob2(g, praca, parque):
     return result, subgrafo
 
 
-def prob3(g, praca, parque):
-    _ , subgrafo = prob2(g, praca, parque)
-    criticas = g.dfs_bridges(subgrafo.adj, praca) # descobre as arestas que deixam o subgrafo desconexo (pontes)
+def prob3(subgrafo, praca):
+    criticas = subgrafo.dfs_bridges(praca) # descobre as arestas que deixam o subgrafo desconexo (pontes)
 
     if criticas:
         print("Parte 3:", " ".join(map(str, sorted(criticas))))

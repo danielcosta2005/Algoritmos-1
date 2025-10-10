@@ -42,8 +42,9 @@ class Graph:
         
         return dist
     
-    def dfs_bridges(self, subgraph, start):
+    def dfs_bridges(self, start):
         n = self.n
+        adj = self.adj
         tempo = 0
         visitado = [False] * (n + 1)
         entrada = [0] * (n + 1)
@@ -56,7 +57,7 @@ class Graph:
             tempo += 1
             entrada[u] = menor[u] = tempo
 
-            for v, idx in subgraph[u]:
+            for v, idx in adj[u]:
                 if not visitado[v]:
                     dfs(v, u)
                     menor[u] = min(menor[u], menor[v])
