@@ -41,3 +41,29 @@ class Graph:
                     heapq.heappush(minheap, (dist[v], v))
         
         return dist
+    
+    def dfs_bridges(self, subgraph, start):
+        n = self.n
+        tempo = 0
+        visitado = [False] * (n + 1)
+        entrada = [0] * (n + 1)
+        menor = [0] * (n + 1)
+        pontes = set()
+
+        def dfs(u, pai):
+            nonlocal tempo
+            visitado[u] = True
+            tempo += 1
+            entrada[u] = menor[u] = tempo
+
+            for v, idx in subgraph[u]:
+                if not visitado[v]:
+                    dfs(v, u)
+                    menor[u] = min(menor[u], menor[v])
+                    if menor[v] > entrada[u]:
+                        pontes.add(idx)
+                elif v != pai:
+                    menor[u] = min(menor[u], entrada[v])
+
+        dfs(start, -1)
+        return pontes
