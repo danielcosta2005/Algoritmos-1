@@ -1,5 +1,5 @@
 
-from utils import load_data, build_conflict_masks
+from utils import load_data, build_conflict_masks, extract_idxs
 from algorithms import max_independent_set
 
 def main():
@@ -7,11 +7,7 @@ def main():
     conflict_masks = build_conflict_masks(N, conflitos)
     best_size, best_mask = max_independent_set(N, conflict_masks)
 
-    # Extrai índices em ordem crescente
-    escolhidos = []
-    for i in range(N):
-        if best_mask & (1 << i):
-            escolhidos.append(i)
+    escolhidos = extract_idxs(N, best_mask)
 
     # Saída no formato pedido
     print(best_size)
